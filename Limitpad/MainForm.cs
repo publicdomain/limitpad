@@ -52,7 +52,15 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnPrevButtonClick(object sender, EventArgs e)
         {
-            // Add code
+            // Show prev color dialog
+            DialogResult dialogResult = prevColorDialog.ShowDialog();
+
+            // Check the user clicked OK
+            if (dialogResult == DialogResult.OK)
+            {
+                // Set prev button back color
+                this.prevButton.ForeColor = prevColorDialog.Color;
+            }
         }
 
         /// <summary>
