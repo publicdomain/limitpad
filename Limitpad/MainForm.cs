@@ -42,7 +42,15 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnPostButtonClick(object sender, EventArgs e)
         {
-            // Add code
+            // Add code// Show post color dialog
+            DialogResult dialogResult = postColorDialog.ShowDialog();
+
+            // Check the user clicked OK
+            if (dialogResult == DialogResult.OK)
+            {
+                // Set post button back color
+                this.postButton.ForeColor = postColorDialog.Color;
+            }
         }
 
         /// <summary>
