@@ -9,6 +9,7 @@ namespace Limitpad
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Text.RegularExpressions;
     using System.Windows.Forms;
 
     /// <summary>
@@ -16,6 +17,11 @@ namespace Limitpad
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// The count regex.
+        /// </summary>
+        Regex countRegex = new Regex(@"[\S]+", RegexOptions.Compiled);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Limitpad.MainForm"/> class.
         /// </summary>
@@ -32,7 +38,21 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnLimitRichTextBoxTextChanged(object sender, EventArgs e)
         {
-            // Add code
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Counts the by regex.
+        /// </summary>
+        /// <returns>The by regex.</returns>
+        /// <param name="inputString">Input string.</param>
+        private int CountByRegex(string inputString)
+        {
+            // Set match collection
+            var matchCollectioncollection = this.countRegex.Matches(inputString);
+
+            // Return the resulting count
+            return matchCollectioncollection.Count;
         }
 
         /// <summary>
@@ -42,7 +62,7 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnPostButtonClick(object sender, EventArgs e)
         {
-            // Add code// Show post color dialog
+            // Show post color dialog
             DialogResult dialogResult = postColorDialog.ShowDialog();
 
             // Check the user clicked OK
