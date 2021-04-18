@@ -255,7 +255,8 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnMoreReleasesPublicDomainGiftcomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Open current website
+            Process.Start("https://publicdomaingift.com");
         }
 
         /// <summary>
