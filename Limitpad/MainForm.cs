@@ -298,7 +298,12 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnCutToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Check there is some selection
+            if (this.limitRichTextBox.SelectionLength > 0)
+            {
+                // Perform cut
+                this.limitRichTextBox.Cut();
+            }
         }
 
         /// <summary>
