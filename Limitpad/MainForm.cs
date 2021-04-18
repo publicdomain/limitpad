@@ -385,7 +385,11 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // Add code
+            // Set clicked item
+            var clickedItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Toggle checked
+            clickedItem.Checked = !clickedItem.Checked;
         }
 
         /// <summary>
