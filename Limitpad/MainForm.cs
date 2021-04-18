@@ -11,6 +11,10 @@ namespace Limitpad
     using System.Drawing;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using PublicDomain;
+    using System.Xml.Serialization;
+    using System.IO;
+    using System.Diagnostics;
 
     /// <summary>
     /// Description of MainForm.
@@ -21,6 +25,22 @@ namespace Limitpad
         /// The count regex.
         /// </summary>
         Regex countRegex = new Regex(@"[\S]+", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
+        /// <summary>
+        /// The settings data.
+        /// </summary>
+        private SettingsData settingsData = null;
+
+        /// <summary>
+        /// The settings data path.
+        /// </summary>
+        private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Limitpad.MainForm"/> class.
@@ -354,6 +374,24 @@ namespace Limitpad
         private void OnLimitNumericUpDownValueChanged(object sender, EventArgs e)
         {
             // Add code
+        }
+
+        /// <summary>
+        /// Loads the settings file.
+        /// </summary>
+        /// <returns>The settings file.</returns>
+        /// <param name="settingsFilePath">Settings file path.</param>
+        private SettingsData LoadSettingsFile(string settingsFilePath)
+        {
+            // Use file stream
+            using (FileStream fileStream = File.OpenRead(settingsFilePath))
+            {
+                // Set xml serialzer
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
+
+                // Return populated settings data
+                return xmlSerializer.Deserialize(fileStream) as SettingsData;
+            }
         }
     }
 }
