@@ -399,7 +399,8 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnLimitNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            // Add code
+            // Colorize pad
+            this.ColorizeLimit();
         }
 
         /// <summary>
@@ -418,7 +419,7 @@ namespace Limitpad
                 // Return populated settings data
                 return xmlSerializer.Deserialize(fileStream) as SettingsData;
             }
-        }
+        }5
 
         /// <summary>
         /// Saves the settings file.
