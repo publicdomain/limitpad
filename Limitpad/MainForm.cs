@@ -266,7 +266,8 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnOriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Open orignal thread
+            Process.Start("https://www.donationcoder.com/forum/index.php?topic=51129.0");
         }
 
         /// <summary>
