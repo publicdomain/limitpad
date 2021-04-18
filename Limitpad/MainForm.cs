@@ -328,7 +328,8 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnPasteToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Perform paste
+            this.limitRichTextBox.Paste();
         }
 
         /// <summary>
