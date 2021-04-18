@@ -276,7 +276,8 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnSourceCodeGithubcomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Open GitHub repository
+            Process.Start("https://github.com/publicdomain/limitpad");
         }
 
         /// <summary>
