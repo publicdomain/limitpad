@@ -355,7 +355,8 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Close program
+            this.Close();
         }
 
         /// <summary>

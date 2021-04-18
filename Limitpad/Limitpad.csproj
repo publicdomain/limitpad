@@ -63,7 +63,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Resources\publicdomain.com_7-8-vista-xp.ico" />
-    <None Include="Resources\speedometer_148960_640_4EK_icon.ico" />
+    <None Include="Resources\speed_43796_640_xHu_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
