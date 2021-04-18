@@ -328,7 +328,11 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnSelectAllToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Select text
+            this.limitRichTextBox.SelectAll();
+
+            // Set focus
+            this.limitRichTextBox.Focus();
         }
 
         /// <summary>
