@@ -313,7 +313,12 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnCopyToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Check there is some selection
+            if (this.limitRichTextBox.SelectionLength > 0)
+            {
+                // Perform copy
+                this.limitRichTextBox.Copy();
+            }
         }
 
         /// <summary>
