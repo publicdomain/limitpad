@@ -365,7 +365,11 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Clear pad text
+            this.limitRichTextBox.Clear();
+
+            // Focus
+            this.limitRichTextBox.Focus();
         }
 
         /// <summary>
@@ -419,7 +423,7 @@ namespace Limitpad
                 // Return populated settings data
                 return xmlSerializer.Deserialize(fileStream) as SettingsData;
             }
-        }5
+        }
 
         /// <summary>
         /// Saves the settings file.
