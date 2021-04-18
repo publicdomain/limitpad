@@ -49,6 +49,28 @@ namespace Limitpad
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Settings data */
+
+            // Check for settings file
+            if (!File.Exists(this.settingsDataPath))
+            {
+                // Create new settings file
+                this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+            }
+
+            // Load settings from disk
+            this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+
+            // Set save on exit
+            this.rememberTextToolStripMenuItem.Checked = this.settingsData.RememberText;
+
+            // TODO Check if must load text [Multiple pads]
+            if (this.settingsData.RememberText && this.settingsData.padTextList.Count > 0)
+            {
+                // Load pad
+                this.limitRichTextBox.Text = this.settingsData.padTextList[0];
+            }
         }
 
         /// <summary>
@@ -418,6 +440,32 @@ namespace Limitpad
                 // Advise user
                 MessageBox.Show($"Error saving settings file.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{exception.Message}", "File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Handles the main form form closing event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
+        {
+            /* Setiings data */
+
+            // Save on exit
+            this.settingsData.RememberText = this.rememberTextToolStripMenuItem.Checked;
+
+            // Clear pad text list
+            this.settingsData.padTextList.Clear();
+
+            // Process list for pads' text
+            if (this.rememberTextToolStripMenuItem.Checked)
+            {
+                // TODO Save pad(s) [Multiple pads]
+                this.settingsData.padTextList.Add(this.limitRichTextBox.Text);
+            }
+
+            // Save settings data to disk
+            this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
     }
 }

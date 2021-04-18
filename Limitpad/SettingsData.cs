@@ -23,10 +23,10 @@ namespace PublicDomain
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> save on exit.
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> remember text.
         /// </summary>
-        /// <value><c>true</c> if save on exit; otherwise, <c>false</c>.</value>
-        public bool SaveOnExit { get; set; } = true;
+        /// <value><c>true</c> if remember text; otherwise, <c>false</c>.</value>
+        public bool RememberText { get; set; } = true;
 
         /// <summary>
         /// The pad text list.
