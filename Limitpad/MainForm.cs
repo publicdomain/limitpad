@@ -15,6 +15,7 @@ namespace Limitpad
     using System.Xml.Serialization;
     using System.IO;
     using System.Diagnostics;
+    using System.Reflection;
 
     /// <summary>
     /// Description of MainForm.
@@ -49,6 +50,14 @@ namespace Limitpad
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Set icons */
+
+            // Set associated icon from exe file
+            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+            // Set public domain weekly tool strip menu item image
+            this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
 
             /* Settings data */
 
@@ -288,7 +297,52 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnAboutToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Set license text
+            var licenseText = $"CC0 1.0 Universal (CC0 1.0) - Public Domain Dedication{Environment.NewLine}" +
+                $"https://creativecommons.org/publicdomain/zero/1.0/legalcode{Environment.NewLine}{Environment.NewLine}" +
+                $"Libraries and icons have separate licenses.{Environment.NewLine}{Environment.NewLine}" +
+                $"Speed limit icon by Clker-Free-Vector-Images- Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/vectors/speed-limit-car-safety-law-ahead-43796/{Environment.NewLine}{Environment.NewLine}" +
+                $"Patreon icon used according to published brand guidelines{Environment.NewLine}" +
+                $"https://www.patreon.com/brand{Environment.NewLine}{Environment.NewLine}" +
+                $"GitHub mark icon used according to published logos and usage guidelines{Environment.NewLine}" +
+                $"https://github.com/logos{Environment.NewLine}{Environment.NewLine}" +
+                $"DonationCoder icon used with permission{Environment.NewLine}" +
+                $"https://www.donationcoder.com/forum/index.php?topic=48718{Environment.NewLine}{Environment.NewLine}" +
+                $"PublicDomain icon is based on the following source images:{Environment.NewLine}{Environment.NewLine}" +
+                $"Bitcoin by GDJ - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/vectors/bitcoin-digital-currency-4130319/{Environment.NewLine}{Environment.NewLine}" +
+                $"Letter P by ArtsyBee - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/illustrations/p-glamour-gold-lights-2790632/{Environment.NewLine}{Environment.NewLine}" +
+                $"Letter D by ArtsyBee - Pixabay License{Environment.NewLine}" +
+                $"https://pixabay.com/illustrations/d-glamour-gold-lights-2790573/{Environment.NewLine}{Environment.NewLine}";
+
+            // Prepend sponsors
+            licenseText = $"RELEASE SPONSORS:{Environment.NewLine}{Environment.NewLine}* Jesse Reichler{Environment.NewLine}{Environment.NewLine}=========={Environment.NewLine}{Environment.NewLine}" + licenseText;
+
+            // Set title
+            string programTitle = typeof(MainForm).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyTitleAttribute>().Title;
+
+            // Set version for generating semantic version 
+            Version version = typeof(MainForm).GetTypeInfo().Assembly.GetName().Version;
+
+            // Set about form
+            var aboutForm = new AboutForm(
+                $"About {programTitle}",
+                $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
+                $"Made for: VeVoLa{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #109, Week #16 @ April 19, 2021",
+                licenseText,
+                this.Icon.ToBitmap())
+            {
+                // Set about form icon
+                Icon = this.associatedIcon,
+
+                // Set always on top
+                TopMost = this.TopMost
+            };
+
+            // Show about form
+            aboutForm.ShowDialog();
         }
 
         /// <summary>
@@ -353,7 +407,23 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Open save file dialog
+            if (this.limitRichTextBox.Text.Length > 0 && this.saveFileDialog.ShowDialog() == DialogResult.OK && this.saveFileDialog.FileName.Length > 0)
+            {
+                try
+                {
+                    // Save to file
+                    File.WriteAllText(this.saveFileDialog.FileName, this.limitRichTextBox.Text);
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when saving to \"{Path.GetFileName(this.saveFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Save file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Inform user
+                MessageBox.Show($"Saved file to \"{Path.GetFileName(this.saveFileDialog.FileName)}\"", "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         /// <summary>
@@ -398,10 +468,6 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Prepare dialog properties 
-            this.openFileDialog.Title = "Open file";
-            this.openFileDialog.Filter = "TXT Files|*.txt|All files (*.*)|*.*";
-
             // Show open file dialog
             if (this.openFileDialog.ShowDialog() == DialogResult.OK)
             {

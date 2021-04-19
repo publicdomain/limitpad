@@ -681,6 +681,18 @@ namespace Limitpad
         	this.postButton.UseVisualStyleBackColor = true;
         	this.postButton.Click += new System.EventHandler(this.OnPostButtonClick);
         	// 
+        	// openFileDialog
+        	// 
+        	this.openFileDialog.DefaultExt = "txt";
+        	this.openFileDialog.Filter = "TXT Files|*.txt|All files (*.*)|*.*";
+        	this.openFileDialog.Title = "Open file";
+        	// 
+        	// saveFileDialog
+        	// 
+        	this.saveFileDialog.DefaultExt = "txt";
+        	this.saveFileDialog.Filter = "TXT Files (*.txt)|*.txt|All files (*.*)|*.*";
+        	this.saveFileDialog.Title = "Save file";
+        	// 
         	// postColorDialog
         	// 
         	this.postColorDialog.Color = System.Drawing.Color.Red;
