@@ -398,7 +398,24 @@ namespace Limitpad
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Add code
+            // Prepare dialog properties 
+            this.openFileDialog.Title = "Open file";
+            this.openFileDialog.Filter = "TXT Files|*.txt|All files (*.*)|*.*";
+
+            // Show open file dialog
+            if (this.openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Populate pad by opened file(s)
+                    this.limitRichTextBox.Text = File.ReadAllText(this.openFileDialog.FileName);
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when opening \"{Path.GetFileName(this.openFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Open file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         /// <summary>
